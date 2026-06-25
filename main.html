@@ -1220,6 +1220,195 @@
       }
     }
 
+
+    /* JOYN Gallery Add-on */
+    .joyn-card {
+      cursor: pointer;
+    }
+
+    .joyn-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 10px 10px 0 rgba(5,7,10,0.18);
+    }
+
+    .joyn-actions {
+      position: relative;
+      z-index: 4;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .joyn-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 9px 13px;
+      border: 2px solid var(--black);
+      background: var(--white);
+      color: var(--black);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 1000;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 rgba(5,7,10,0.16);
+      transition: 0.18s ease;
+    }
+
+    .joyn-btn.github {
+      background: var(--orange);
+      color: var(--white);
+    }
+
+    .joyn-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 rgba(5,7,10,0.20);
+    }
+
+    .joyn-gallery {
+      display: none;
+      grid-column: 1 / -1;
+      width: 100%;
+      margin-top: 28px;
+      position: relative;
+      z-index: 4;
+    }
+
+    .joyn-gallery.is-open {
+      display: block;
+      animation: joynGalleryOpen 0.48s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .joyn-gallery-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid rgba(5,7,10,0.68);
+    }
+
+    .joyn-gallery-top strong {
+      color: var(--orange);
+      font-size: clamp(36px, 7vw, 86px);
+      line-height: 0.82;
+      letter-spacing: -0.105em;
+      text-transform: uppercase;
+    }
+
+    .joyn-gallery-top span {
+      max-width: 360px;
+      color: rgba(5,7,10,0.68);
+      font-size: 13px;
+      font-weight: 900;
+      text-align: right;
+    }
+
+    .joyn-gallery-scroll {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 100%;
+      gap: 18px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      padding: 2px 2px 18px;
+      scrollbar-color: var(--orange) rgba(247,245,238,0.52);
+      scrollbar-width: thin;
+    }
+
+    .joyn-gallery-scroll::-webkit-scrollbar {
+      height: 13px;
+    }
+
+    .joyn-gallery-scroll::-webkit-scrollbar-track {
+      background: rgba(247,245,238,0.52);
+      border: 1px solid rgba(5,7,10,0.28);
+    }
+
+    .joyn-gallery-scroll::-webkit-scrollbar-thumb {
+      background: var(--orange);
+      border: 2px solid rgba(247,245,238,0.76);
+    }
+
+    .joyn-slide {
+      margin: 0;
+      width: 100%;
+      scroll-snap-align: center;
+      background: rgba(247,245,238,0.28);
+    }
+
+    .joyn-slide img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: min(78vh, 760px);
+      object-fit: contain;
+    }
+
+    .joyn-gallery-controls {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .joyn-arrow {
+      min-width: 48px;
+      height: 42px;
+      border: 2px solid var(--black);
+      background: var(--white);
+      color: var(--black);
+      font-size: 20px;
+      font-weight: 1000;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 rgba(5,7,10,0.16);
+      transition: 0.18s ease;
+    }
+
+    .joyn-arrow:hover {
+      background: var(--orange);
+      color: var(--white);
+      transform: translate(-2px, -2px);
+    }
+
+    @keyframes joynGalleryOpen {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .joyn-gallery-top {
+        display: block;
+      }
+
+      .joyn-gallery-top span {
+        display: block;
+        margin-top: 8px;
+        text-align: left;
+      }
+
+      .joyn-gallery-scroll {
+        gap: 12px;
+      }
+
+      .joyn-slide img {
+        max-height: 72vh;
+      }
+    }
+
   </style>
 </head>
 
@@ -1440,7 +1629,7 @@
           </div>
 
           <div class="cards-2">
-            <article class="card project-card">
+            <article class="card project-card joyn-card" id="joynCard" role="button" tabindex="0" aria-expanded="false" aria-controls="joynGallery">
               <div class="project-top">
                 <div>
                   <h3>JOYN</h3>
@@ -1472,6 +1661,11 @@
                 <span class="tag">JFreeChart</span>
                 <span class="tag">iText7</span>
                 <span class="tag">CSV</span>
+              </div>
+
+              <div class="joyn-actions">
+                <button type="button" class="joyn-btn" id="joynGalleryBtn">View 21 Images</button>
+                <a class="joyn-btn github" href="https://github.com/Imtheherstory/joyn" target="_blank" rel="noopener" id="joynGithubLink">GitHub Page</a>
               </div>
             </article>
 
@@ -1505,6 +1699,83 @@
                 <span class="tag">Singleton Pattern</span>
               </div>
             </article>
+          </div>
+          <div class="joyn-gallery" id="joynGallery" aria-hidden="true">
+            <div class="joyn-gallery-top">
+              <strong>JOYN Screens</strong>
+              <span>좌우로 스크롤해서 21장의 프로젝트 이미지를 확인할 수 있습니다.</span>
+            </div>
+
+            <div class="joyn-gallery-scroll" id="joynGalleryScroll" tabindex="0" aria-label="JOYN 프로젝트 이미지 가로 스크롤 영역">
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-0.png" alt="JOYN 프로젝트 화면 1" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-1.png" alt="JOYN 프로젝트 화면 2" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-2.png" alt="JOYN 프로젝트 화면 3" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-3.png" alt="JOYN 프로젝트 화면 4" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-4.png" alt="JOYN 프로젝트 화면 5" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-5.png" alt="JOYN 프로젝트 화면 6" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-6.png" alt="JOYN 프로젝트 화면 7" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-7.png" alt="JOYN 프로젝트 화면 8" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-8.png" alt="JOYN 프로젝트 화면 9" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-9.png" alt="JOYN 프로젝트 화면 10" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-10.png" alt="JOYN 프로젝트 화면 11" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-11.png" alt="JOYN 프로젝트 화면 12" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-12.png" alt="JOYN 프로젝트 화면 13" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-13.png" alt="JOYN 프로젝트 화면 14" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-14.png" alt="JOYN 프로젝트 화면 15" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-15.png" alt="JOYN 프로젝트 화면 16" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-16.png" alt="JOYN 프로젝트 화면 17" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-17.png" alt="JOYN 프로젝트 화면 18" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-18.png" alt="JOYN 프로젝트 화면 19" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-19.png" alt="JOYN 프로젝트 화면 20" loading="lazy" />
+              </figure>
+              <figure class="joyn-slide">
+                <img src="https://raw.githubusercontent.com/onlyunlimit/bodam-id-card/refs/heads/main/180899f11f8dfba37ac06f09f2a118ba-20.png" alt="JOYN 프로젝트 화면 21" loading="lazy" />
+              </figure>
+            </div>
+
+            <div class="joyn-gallery-controls">
+              <button type="button" class="joyn-arrow" id="joynPrev" aria-label="이전 이미지">←</button>
+              <button type="button" class="joyn-arrow" id="joynNext" aria-label="다음 이미지">→</button>
+            </div>
           </div>
         </section>
 
@@ -1759,6 +2030,77 @@
 
   <script>
     const topButton = document.getElementById("topButton");
+
+
+    const joynCard = document.getElementById("joynCard");
+    const joynGalleryBtn = document.getElementById("joynGalleryBtn");
+    const joynGithubLink = document.getElementById("joynGithubLink");
+    const joynGallery = document.getElementById("joynGallery");
+    const joynGalleryScroll = document.getElementById("joynGalleryScroll");
+    const joynPrev = document.getElementById("joynPrev");
+    const joynNext = document.getElementById("joynNext");
+
+    function toggleJoynGallery() {
+      if (!joynGallery || !joynCard || !joynGalleryBtn) return;
+
+      const isOpen = joynGallery.classList.toggle("is-open");
+      joynGallery.setAttribute("aria-hidden", String(!isOpen));
+      joynCard.setAttribute("aria-expanded", String(isOpen));
+      joynGalleryBtn.textContent = isOpen ? "Close Images" : "View 21 Images";
+
+      if (isOpen) {
+        setTimeout(() => {
+          joynGallery.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 80);
+      }
+    }
+
+    function scrollJoynGallery(direction) {
+      if (!joynGalleryScroll) return;
+
+      joynGalleryScroll.scrollBy({
+        left: joynGalleryScroll.clientWidth * direction,
+        behavior: "smooth"
+      });
+    }
+
+    if (joynCard) {
+      joynCard.addEventListener("click", toggleJoynGallery);
+      joynCard.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggleJoynGallery();
+        }
+      });
+    }
+
+    if (joynGalleryBtn) {
+      joynGalleryBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        toggleJoynGallery();
+      });
+    }
+
+    if (joynGithubLink) {
+      joynGithubLink.addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
+    }
+
+    [joynGallery, joynPrev, joynNext].forEach((el) => {
+      if (el) {
+        el.addEventListener("click", (event) => event.stopPropagation());
+      }
+    });
+
+    if (joynPrev) {
+      joynPrev.addEventListener("click", () => scrollJoynGallery(-1));
+    }
+
+    if (joynNext) {
+      joynNext.addEventListener("click", () => scrollJoynGallery(1));
+    }
+
 
 
     const motionTargets = [
